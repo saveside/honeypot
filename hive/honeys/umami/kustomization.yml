@@ -1,0 +1,17 @@
+resources:
+  - namespace.yml
+  - ingressroute.yml
+  - application.yml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+secretGenerator:
+  - name: umami-secret
+    namespace: umami-k8s
+    envs:
+      - ./.app-secret.env
+  - name: umami-postgresql
+    namespace: umami-k8s
+    envs:
+      - ./.db-secret.env
