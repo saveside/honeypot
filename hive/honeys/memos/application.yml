@@ -1,0 +1,23 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: memos
+  namespace: argocd
+spec:
+  destination:
+    namespace: memos-k8s
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: memos
+    helm:
+      parameters:
+      - name: postgresql.secret.autoCreate
+        value: kustomize
+    repoURL: https://helm.mtaha.dev
+    targetRevision: '*'
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true
