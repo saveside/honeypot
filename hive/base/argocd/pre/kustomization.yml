@@ -1,0 +1,15 @@
+resources:
+  - namespace.yml
+
+helmCharts:
+  - name: argo-cd
+    repo: https://argoproj.github.io/argo-helm
+    releaseName: argocd
+    version: 7.8.15
+    namespace: argocd
+    valuesInline:
+      configs:
+        params:
+          server.insecure: true
+      global:
+        domain: argo.savew.dev
