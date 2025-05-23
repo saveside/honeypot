@@ -1,0 +1,11 @@
+resources:
+  - kubernetes-reflector/
+  - tailscale-operator/
+  - umami/
+  - vaultwarden/
+  - n8n/
+  - bin/
+  - anki-sync/
+  - memos/
+  - open-webui/
+  - stirling-pdf/ 
