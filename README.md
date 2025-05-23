@@ -11,7 +11,7 @@ Welcome to the **HoneyPot** cluster - where applications buzz with productivity 
 | Queen     | honeypie     | Hetzner Cloud | Fedora Cloud | Intel Xeon (Skylake) 2x2.10GHz | 4GB  | CX22    |
 | Worker    | honeybee     | Hetzner Cloud | Fedora Cloud | Intel Xeon (Skylake) 4x2.10GHz | 8GB  | CX32    |
 
-## 🏗️ Base Infrastructure (The Foundation)
+## 🏗️ Base Infrastructure (The Heart)
 
 Essential services that keep the hive running smoothly:
 
