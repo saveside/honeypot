@@ -1,0 +1,4 @@
+resources:
+  - namespace.yml
+  - config.yml
+  - application.yml
