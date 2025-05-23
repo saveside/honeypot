@@ -27,7 +27,6 @@ Essential services that keep the hive running smoothly:
 - **Anki Sync** - Self-hosted spaced repetition flashcards
 - **Memos** - Lightweight note-taking and knowledge base
 - **Nextcloud** - File sharing, calendar, and collaboration platform
-- **n8n** - Workflow automation and integration platform
 
 ### Security & Access
 - **Vaultwarden** - Self-hosted Bitwarden compatible password manager
