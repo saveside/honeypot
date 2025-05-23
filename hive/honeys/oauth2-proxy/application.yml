@@ -1,0 +1,44 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: oauth2-proxy
+  namespace: argocd
+spec:
+  destination:
+    namespace: oauth2-proxy-k8s
+    server: https://kubernetes.default.svc
+  source:
+    chart: oauth2-proxy
+    helm:
+      parameters:
+      - name: config.existingSecret
+        value: oauth2-proxy-secret
+      - name: extraArgs.cookie-domain
+        value: ".savew.dev"
+      - name: extraArgs.cookie-secure
+        value: "true"
+      - name: extraArgs.provider
+        value: keycloak-oidc
+      - name: extraArgs.redirect-url
+        value: https://auth.savew.dev/realms/jomo/protocol/openid-connect/auth
+      - name: extraArgs.oidc-issuer-url
+        value: https://auth.savew.dev/realms/jomo
+      - name: extraArgs.reverse-proxy
+        value: "true"
+      - name: extraArgs.silence-ping-logging
+        value: "true"
+      - name: extraArgs.skip-provider-button
+        value: "true"
+      - name: extraArgs.upstream
+        value: static://200
+      - name: extraArgs.whitelist-domain
+        value: ".savew.dev"
+    repoURL: https://oauth2-proxy.github.io/manifests
+    targetRevision: '*'
+  sources: []
+  project: default
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

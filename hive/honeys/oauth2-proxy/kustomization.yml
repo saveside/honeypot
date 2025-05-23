@@ -1,0 +1,12 @@
+resources:
+  - application.yml
+  - namespace.yml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+secretGenerator:
+  - name: oauth2-proxy-secret
+    namespace: oauth2-proxy-k8s
+    envs:
+      - ./.app-secret.env
