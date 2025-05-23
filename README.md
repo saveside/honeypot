@@ -10,8 +10,8 @@ Welcome to the **HoneyPot** cluster - where applications buzz with productivity 
 ### 🐝 Worker Bees (Cluster Nodes)
 | Role      | Hostname     | Location      | OS           | CPU  | RAM  | Machine | Status |
 |-----------|--------------|---------------|--------------|------|------|---------|--------|
-| Queen 👑  | honeypie     | Hetzner Cloud | Fedora Cloud | Intel Xeon (Skylake) 2x2.10GHz | 4GB  | CX22    | 🟢 Active |
-| Worker 🐝 | honeybee     | Hetzner Cloud | Fedora Cloud | Intel Xeon (Skylake) 4x2.10GHz | 8GB  | CX32    | 🟢 Active |
+| Queen 👑  | honeypie     | Hetzner Cloud | Fedora Cloud | Intel Xeon (Skylake) 2x2.10GHz | 4GB  | CX22
+| Worker 🐝 | honeybee     | Hetzner Cloud | Fedora Cloud | Intel Xeon (Skylake) 4x2.10GHz | 8GB  | CX32
 
 ### 🍯 Sweet Applications (The Honey Collection)
 
