@@ -1,0 +1,8 @@
+resources:
+  - argocd/
+  - longhorn/
+  - traefik/
+  - cert-manager/
+  - metallb/
+sortOptions:
+  - order: fifo
