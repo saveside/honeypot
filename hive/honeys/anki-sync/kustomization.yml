@@ -1,0 +1,13 @@
+resources:
+  - namespace.yml
+  - ingressroute.yml
+  - application.yml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+secretGenerator:
+  - name: user1-secret
+    namespace: anki-sync-k8s
+    envs:
+      - ./.app-secret.env
