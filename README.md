@@ -63,7 +63,7 @@ kubectl apply -k hive/base/
 # Deploy specific applications manually if needed
 kubectl apply -k hive/honeys/nextcloud/
 kubectl apply -k hive/honeys/vaultwarden/
-kubectl apply -k hive/honeys/n8n/
+kubectl apply -k hive/honeys/memos/
 ```
 
 ### 📁 Repository Structure
@@ -82,7 +82,6 @@ honeypot-k8s/
 │       ├── gatus/              # Health monitoring
 │       ├── kubernetes-reflector/ # Secret sync
 │       ├── memos/              # Note-taking
-│       ├── n8n/                # Workflow automation
 │       ├── nextcloud/          # File sharing
 │       ├── oauth2-proxy/       # Authentication
 │       ├── open-webui/         # AI interface
