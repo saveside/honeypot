@@ -1,0 +1,17 @@
+resources:
+  - namespace.yml
+  - subnet-router.yml
+  - application.yml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+secretGenerator:
+  - name: operator-oauth
+    namespace: tailscale-k8s
+    envs:
+      - ./.operator-secret.env
+  - name: tailscale-auth
+    namespace: tailscale-k8s
+    envs:
+      - ./.tailscale-secret.env
