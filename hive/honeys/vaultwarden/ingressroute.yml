@@ -1,0 +1,24 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: vaultwarden
+  namespace: vaultwarden-k8s
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`vault.savew.dev`)
+      priority: 10
+      services:
+        - kind: Service
+          name: vaultwarden-main
+          namespace: vaultwarden-k8s
+          passHostHeader: true
+          port: 8080
+          scheme: http
+  tls:
+    domains:
+      - main: vault.savew.dev
+    secretName: wildcard-savew.dev-tls
