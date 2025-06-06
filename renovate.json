@@ -6,14 +6,14 @@
   "customManagers": [
     {
       "customType": "regex",
-      "packageNameTemplate": "kubernetes/kubernetes",
-      "matchStrings": [
-        "k0ssVersion:\\s*(?<currentValue>v\\d+\\.\\d+\\.\\d+)"
-      ],
-      "datasourceTemplate": "github-releases",
       "managerFilePatterns": [
         "/^vars\\.yaml$/"
       ],
+      "matchStrings": [
+        "k0sVersion:\\s*(?<currentValue>v\\d+\\.\\d+\\.\\d+)"
+      ],
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "kubernetes/kubernetes",
       "versioningTemplate": "semver"
     }
   ]
