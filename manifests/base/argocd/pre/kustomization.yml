@@ -1,6 +1,5 @@
 resources:
   - namespace.yml
-
 helmCharts:
   - name: argo-cd
     repo: https://argoproj.github.io/argo-helm

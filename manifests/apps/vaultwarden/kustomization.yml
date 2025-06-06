@@ -2,10 +2,8 @@ resources:
   - namespace.yml
   - ingressroute.yml
   - application.yml
-
 generatorOptions:
   disableNameSuffixHash: true
-
 secretGenerator:
   - name: vaultwarden-postgresql
     namespace: vaultwarden-k8s
