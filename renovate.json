@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended"
   ],
-  "packageRules": [
+  "customManagers": [
     {
       "packageNameTemplate": "kubernetes/kubernetes",
       "versioning": "regex:^(?<compatibility>.*)-v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)?$",
