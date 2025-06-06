@@ -1,4 +1,11 @@
 resources:
   - namespace.yml
   - config.yml
-  - application.yml
+  # - application.yml
+namespace: metallb-system
+helmCharts:
+  - name: metallb
+    repo: https://metallb.github.io/metallb/
+    version: '*'
+    releaseName: metallb
+    namespace: metallb-system

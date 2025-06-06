@@ -9,7 +9,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`llm.savew.dev`)
+      match: Host(`llm.savew.dev`) && (PathPrefix(`/v1`) || PathPrefix(`/models`))
       priority: 10
       services:
         - kind: Service

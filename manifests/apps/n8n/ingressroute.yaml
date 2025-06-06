@@ -34,4 +34,4 @@ spec:
   tls:
     secretName: wildcard-savew.dev-tls
     domains:
-      - main: n8n.savew.dev
+      - main: n8n..savew.dev
