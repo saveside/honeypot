@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["kubernetes/kubernetes"],
+      "versioning": "regex:^(?<compatibility>.*)-v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)?$",
+      "datasourceTemplate": "github-releases",
+      "managerFilePatterns": ["/envs.yaml$/"]
+
+    }
+  ]
+}
