@@ -8,7 +8,7 @@
       "customType": "regex",
       "packageNameTemplate": "kubernetes/kubernetes",
       "matchStrings": [
-        "k0sVersion:\\s*(?<currentValue>v\\d+\\.\\d+\\.\\d+)"
+        "k0ssVersion:\\s*(?<currentValue>v\\d+\\.\\d+\\.\\d+)"
       ],
       "datasourceTemplate": "github-releases",
       "managerFilePatterns": [
