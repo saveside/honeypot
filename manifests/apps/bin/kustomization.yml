@@ -1,0 +1,11 @@
+resources:
+  - namespace.yml
+  # - ingressroute.yml
+namespace: bin
+helmCharts:
+  - name: bin
+    repo: https://helm.savew.dev/
+    version: '*'
+    releaseName: bin
+    valuesFile: values.yaml
+    namespace: bin

@@ -1,0 +1,33 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: umami
+  namespace: umami
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "HeaderRegexp(`Referer`, `^https?:\\/\\/(?:[a-zA-Z0-9\\-\\.]+\\.)?savew\\.dev`) && (Method(`POST`) || Method(`OPTIONS`)) && Host(`umami.savew.dev`) && PathPrefix(`/api`)"
+      priority: 10
+      services:
+        - kind: Service
+          name: umami-main
+          namespace: umami
+          passHostHeader: true
+          port: 3000
+          scheme: http
+    - kind: Rule
+      match: "Host(`umami.savew.dev`) && Method(`GET`) || (Method(`POST`) && (PathPrefix(`/websites`) || PathPrefix(`/dashboard`)))"
+      priority: 11
+      services:
+        - kind: Service
+          name: umami-main
+          namespace: umami
+          passHostHeader: true
+          port: 3000
+          scheme: http
+  tls:
+    domains:
+      - main: umami.savew.dev
+    secretName: wildcard-savew.dev-tls

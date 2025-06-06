@@ -1,0 +1,169 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: litellm-config
+  namespace: litellm
+data:
+  config.yaml: |-
+    # TODO: Remove Copilot when it is supported on LiteLLM
+    model_list:
+      # Gemini 2.5 Pro 05-06
+      - model_name: gemini-2.5-pro
+        litellm_params:
+          model: openai/gemini-2.5-pro-preview-05-06
+          api_base: https://api.voidai.app/v1
+          api_key: "os.environ/VOIDAI_API_KEY"
+          max_tokens: 65535
+        model_info:
+          id: gemini-2.5-pro-preview-05-06
+
+      - model_name: gemini-gemini-2.5-pro
+        litellm_params:
+          model: gemini/gemini-2.5-pro-preview-05-06
+        model_info:
+          id: gemini-2.5-pro-preview-05-06
+
+      - model_name: copilot-gemini-2.5-pro
+        litellm_params:
+          model: openai/gemini-2.5-pro
+          api_base: http://copilot-api-main.open-webui-k8s.svc.cluster.local:4141
+          api_key: blabladoesntmatter
+        model_info:
+          id: gemini-2.5-pro-preview-05-06
+
+      # O3-high
+      - model_name: o3-high
+        litellm_params:
+          model: openai/o3-high
+          api_base: https://api.voidai.app/v1
+          api_key: "os.environ/VOIDAI_API_KEY"
+        model_info:
+          id: o3
+      # O3-medium
+      - model_name: o3-medium
+        litellm_params:
+          model: openai/o3-medium
+          api_base: https://api.voidai.app/v1
+          api_key: "os.environ/VOIDAI_API_KEY"
+        model_info:
+          id: o3
+
+
+      # Claude Sonnet 4
+
+      - model_name: claude-sonnet-4
+        litellm_params:
+          model: openai/claude-sonnet-4-20250514
+          api_base: https://api.voidai.app/v1
+          api_key: "os.environ/VOIDAI_API_KEY"
+        model_info:
+          id: claude-sonnet-4
+
+      - model_name: copilot-claude-sonnet-4
+        litellm_params:
+          model: openai/claude-sonnet-4
+          api_base: http://copilot-api-main.open-webui-k8s.svc.cluster.local:4141
+          api_key: blabladoesntmatter
+        model_info:
+          id: claude-sonnet-4
+
+      # Claude Sonnet 4 (Thinking)
+      - model_name: claude-sonnet-4-thinking
+        litellm_params:
+          model: openai/claude-sonnet-4-20250514-thinking
+          api_base: https://api.voidai.app/v1
+          api_key: "os.environ/VOIDAI_API_KEY"
+        model_info:
+          id: claude-sonnet-4
+
+      # GPT-4o
+      - model_name: gpt-4o
+        litellm_params:
+          model: openai/gpt-4o
+          api_base: https://api.voidai.app/v1
+          api_key: "os.environ/VOIDAI_API_KEY"
+        model_info:
+          id: gpt-4o
+      - model_name: copilot-gpt-4o
+        litellm_params:
+          model: openai/gpt-4o
+          api_base: http://copilot-api-main.open-webui-k8s.svc.cluster.local:4141
+          api_key: blabladoesntmatter
+        model_info:
+          id: gpt-4o
+
+
+      # o4-mini
+      - model_name: o4-mini
+        litellm_params:
+          model: openai/o4-mini
+          api_base: https://api.voidai.app/v1
+          api_key: "os.environ/VOIDAI_API_KEY"
+        model_info:
+          id: o4-mini
+
+
+      - model_name: copilot-o4-mini
+        litellm_params:
+          model: openai/o4-mini
+          api_base: http://copilot-api-main.open-webui-k8s.svc.cluster.local:4141
+          api_key: blabladoesntmatter
+        model_info:
+          id: o4-mini
+
+      # gpt-4.1
+      - model_name: gpt-4.1
+        litellm_params:
+          model: openai/gpt-4.1
+          api_base: https://api.voidai.app/v1
+          api_key: "os.environ/VOIDAI_API_KEY"
+        model_info:
+          id: gpt-4.1
+
+      - model_name: copilot-gpt-4.1
+        litellm_params:
+          model: openai/gpt-4.1
+          api_base: http://copilot-api-main.open-webui-k8s.svc.cluster.local:4141
+          api_key: blabladoesntmatter
+        model_info:
+          id: gpt-4.1
+
+
+      # gpt-image-1
+      - model_name: gpt-image-1
+        litellm_params:
+          model: openai/gpt-image-1
+          api_base: https://api.voidai.app/v1
+          api_key: "os.environ/VOIDAI_API_KEY"
+        model_info:
+          id: gpt-image-1
+
+    litellm_settings:
+      num_retries: 3
+      allowed_fails: 3
+      cooldown_time: 30
+      drop_params: True
+      cache: false
+      fallbacks:
+        - gemini-2.5-pro:
+          - gemini-gemini-2.5-pro
+          - copilot-gemini-2.5-pro
+        - o4-mini:
+          - copilot-o4-mini
+        - gpt-4.1:
+          - copilot-gpt-4.1
+        - gpt-4o:
+          - copilot-gpt-4o
+        - claude-sonnet-4:
+          - copilot-claude-sonnet-4
+
+    general_settings:
+      alerting: ["slack"]
+      alert_types:
+        - "llm_exceptions"
+        - "llm_too_slow"
+        - "llm_requests_hanging"
+        - "db_exceptions"
+        - "daily_reports"
+        - "new_model_added"
+        - "outage_alerts"

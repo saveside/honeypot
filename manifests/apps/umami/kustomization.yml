@@ -1,0 +1,22 @@
+resources:
+  - namespace.yml
+  - ingressroute.yml
+namespace: umami
+helmCharts:
+  - name: umami
+    repo: https://helm.mtaha.dev
+    version: '*'
+    valuesFile: values.yaml
+    namespace: umami
+    releaseName: umami
+generatorOptions:
+  disableNameSuffixHash: true
+secretGenerator:
+  - name: umami-secret
+    namespace: umami
+    envs:
+      - ./.app-secret.env
+  - name: umami-postgresql
+    namespace: umami
+    envs:
+      - ./.db-secret.env
