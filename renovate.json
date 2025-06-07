@@ -16,6 +16,5 @@
       "packageNameTemplate": "k0sproject/k0s", 
       "versioningTemplate": "semver"
     }
-  ],
-  "logLevel": "debug"
+  ]
 }
