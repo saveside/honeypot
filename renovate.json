@@ -6,15 +6,21 @@
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": [
+      "fileMatch": [
         "^vars\\.yaml$"
       ],
       "matchStrings": [
-        "k0sVersion:\\s*(?<currentValue>v\\d+\\.\\d+\\.\\d+)"
+        "k0sVersion:\\s*(?<currentValue>v\\d+\\.\\d+\\.\\d+\\+k0s\\.\\d+)"
       ],
       "datasourceTemplate": "github-releases",
       "packageNameTemplate": "k0sproject/k0s", 
       "versioningTemplate": "semver"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["github-releases"],
+      "extractVersionTemplate": "^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\+k0s\\.(?<build>\\d+)$"
     }
   ]
 }
