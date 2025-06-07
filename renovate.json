@@ -3,62 +3,19 @@
   "extends": [
     "config:recommended"
   ],
-  "packageRules": [
-    {
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchPackageNames": [
-        "ghcr.io/umami-software/umami"
-      ],
-      "versioning": "regex:^postgresql-v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
-    },
-    {
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchPackageNames": [
-        "ghcr.io/berriai/litellm"
-      ],
-      "versioning": "regex:^main-v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-stable$"
-    }
-  ],
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": [
-        "/^vars\\.yaml$/"
+      "fileMatch": [
+        "^vars\\.yaml$"
       ],
       "matchStrings": [
-        "talosVersion:\\s*(?<currentValue>v\\d+\\.\\d+\\.\\d+)"
+        "k0sVersion:\\s*(?<currentValue>v\\d+\\.\\d+\\.\\d+)"
       ],
       "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "siderolabs/talos",
-      "versioningTemplate": "semver"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/^vars\\.yaml$/"
-      ],
-      "matchStrings": [
-        "k8sVersion:\\s*(?<currentValue>v\\d+\\.\\d+\\.\\d+)"
-      ],
-      "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "kubernetes/kubernetes",
-      "versioningTemplate": "semver"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/^manifests/core/longhorn/kustomization\\.yaml$/"
-      ],
-      "matchStrings": [
-        "https://raw\\.githubusercontent\\.com/longhorn/longhorn/v(?<currentValue>\\d+\\.\\d+\\.\\d+)/deploy/longhorn\\.yaml"
-      ],
-      "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "longhorn/longhorn",
+      "packageNameTemplate": "k0sproject/k0s", 
       "versioningTemplate": "semver"
     }
-  ]
+  ],
+  "logLevel": "debug"
 }
