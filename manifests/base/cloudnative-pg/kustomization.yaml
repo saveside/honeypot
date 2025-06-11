@@ -1,0 +1,14 @@
+resources:
+  - namespace.yaml
+sortOptions:
+  order: legacy
+  legacySortOptions:
+    orderFirst:
+      - Namespace
+      - customResourceDefinition
+helmCharts:
+  - name: cloudnative-pg
+    repo: https://cloudnative-pg.github.io/charts
+    version: 0.24.0
+    valuesFile: values.yaml
+    namespace: cnpg-system
