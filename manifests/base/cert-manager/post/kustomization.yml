@@ -1,4 +1,13 @@
 resources:
   - issuer.yml
   - wildcard-certificate.yml
-  - application.yml
+  #- application.yml
+namespace: traefik
+helmCharts:
+  - name: cert-manager
+    repo: https://charts.jetstack.io
+    version: '*'
+    releaseName: cert-manager
+    namespace: traefik
+    valuesInline:
+      installCRDs: true
