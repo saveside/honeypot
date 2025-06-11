@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: slimserve
+  name: slimserve
+  namespace: slimserve
+spec:
+  revisionHistoryLimit: 0
+  replicas: 2
+  selector:
+    matchLabels:
+      service: slimserve
+  template:
+    metadata:
+      labels:
+        service: slimserve
+    spec:
+      containers:
+        - name: slimserve
+          image: ghcr.io/xeome/slimserve
+          volumeMounts:
+            - mountPath: /data
+              name: slimserve-data
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            exec:
+              command:
+                - curl
+                - -f
+                - http://localhost:8080 || exit 1
+            failureThreshold: 3
+            initialDelaySeconds: 40
+            periodSeconds: 30
+            timeoutSeconds: 10
+      restartPolicy: Always
+      volumes:
+        - name: slimserve-data
+          persistentVolumeClaim:
+            claimName: slimserve-data
+
