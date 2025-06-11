@@ -6,7 +6,7 @@ A rich hive of sweet, containerized workloads — and a tempting honeypot for cu
 
 ## 🍯 What Is Honeypot?
 
-This Kubernetes setup isn’t just sweet—it's sticky. Designed to both **serve real, productive workloads** *and* **lure unwanted probes**, Honeypot acts as a decoy and canary in your infrastructure. Run harmless applications, but monitor unexpected access as a way to detect reconnaissance, port scans, or malicious activity.
+A honey soaked Kubernetes configuration which provides simplicty and advanced usability with many services and tools
 
 ---
 
