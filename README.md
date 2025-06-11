@@ -64,6 +64,7 @@ kubectl apply -k manifests/base/
 # Deploy honey applications
 kubectl apply -k manifests/apps/n8n/
 kubectl apply -k manifests/apps/umami/
+```
 
 ---
 
