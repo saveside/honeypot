@@ -3,12 +3,14 @@ kind: IngressRoute
 metadata:
   name: litellm
   namespace: litellm
+  annotations:
+    cert-manager.io/cluster-issuer: mainissuer
 spec:
   entryPoints:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`llm.savew.dev`) && (PathPrefix(`/v1`) || PathPrefix(`/models`))
+      match: Host(`llm.savew.dev`) && PathPrefix(`/v1/`)
       priority: 10
       services:
         - kind: Service
@@ -18,6 +20,6 @@ spec:
           port: 4000
           scheme: http
   tls:
+    secretName: wildcard-savew.dev-tls
     domains:
       - main: llm.savew.dev
-    secretName: wildcard-savew.dev-tls

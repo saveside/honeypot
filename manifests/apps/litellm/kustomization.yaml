@@ -2,11 +2,14 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - namespace.yaml
-  - ingressroute.yml
   - postgres.yaml
   - litellm-deployment.yaml
   - litellm-service.yaml
   - litellm-configmap.yaml
+  - copilot-api-data-persistentvolumeclaim.yaml
+  - copilot-api-deployment.yaml
+  - copilot-api-service.yaml
+  - ingressroute.yaml
 secretGenerator:
   - name: production
     namespace: litellm
@@ -18,3 +21,6 @@ images:
   - name: ghcr.io/berriai/litellm
     newName: ghcr.io/berriai/litellm
     newTag: main-v1.72.0-stable
+  - name: ghcr.io/kreatoo/copilot-api-docker
+    newName: ghcr.io/kreatoo/copilot-api-docker
+    newTag: v0.3.0
