@@ -53,7 +53,6 @@ Sweet, useful services that do real work—but quietly entice accidental visitor
 
 - `kubectl` access  
 - `kustomize` for manifest templating  
-- (Optional) ArgoCD for automated GitOps deployments  
 
 ### Manual Steps
 
