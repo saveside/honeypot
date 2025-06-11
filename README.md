@@ -1,9 +1,5 @@
 # 🐝 Honeypot — A Honey‑Soaked Kubernetes Cluster
 
-A rich hive of sweet, containerized workloads — and a tempting honeypot for curious intruders.
-
----
-
 ## 🍯 What Is Honeypot?
 
 A honey soaked Kubernetes configuration which provides simplicty and advanced usability with many services and tools
