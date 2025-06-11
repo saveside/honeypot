@@ -8,7 +8,7 @@ helmCharts:
   - name: cert-manager
     repo: https://charts.jetstack.io
     releaseName: cert-manager
-    version: 1.17.1
+    version: v1.18.0
     namespace: traefik
     valuesInline:
       installCRDs: true
