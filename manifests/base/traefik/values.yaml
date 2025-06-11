@@ -1,7 +1,7 @@
 deployment:
   replicas: 1
 
-updateStrategy: 
+updateStrategy:
   rollingUpdate:
     maxUnavailable: 1
     maxSurge: 1
