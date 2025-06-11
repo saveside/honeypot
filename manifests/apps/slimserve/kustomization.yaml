@@ -9,4 +9,4 @@ resources:
 namespace: slimserve
 images:
   - name: ghcr.io/xeome/slimserve
-    newTag: 0.1.1
+    newTag: 0.2.0
