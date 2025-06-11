@@ -1,2 +1,30 @@
 resources:
-  - application.yml
+  - namespace.yaml
+  - ratelimit-middleware.yaml
+sortOptions:
+  order: legacy
+  legacySortOptions:
+    orderFirst:
+      - Namespace
+      - customResourceDefinition
+    orderLast:
+      - Middleware
+      - TLSStore
+namespace: traefik
+patches:
+  - path: patches/deployment-revision-history.yaml
+    target:
+      kind: Deployment
+      name: traefik
+helmCharts:
+  - name: traefik
+    repo: https://traefik.github.io/charts
+    version: 36.0.0
+    releaseName: traefik
+    valuesFile: values.yaml
+    namespace: traefik
+  - name: traefik-crds
+    repo: https://traefik.github.io/charts
+    version: 1.8.1
+    releaseName: traefik-crds
+    namespace: traefik
