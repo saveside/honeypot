@@ -19,7 +19,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^manifests/core/longhorn/kustomization\\.yaml$/"
+        "/^manifests/base/longhorn/kustomization\\.yaml$/"
       ],
       "matchStrings": [
         "https://raw\\.githubusercontent\\.com/longhorn/longhorn/v(?<currentValue>\\d+\\.\\d+\\.\\d+)/deploy/longhorn\\.yaml"
