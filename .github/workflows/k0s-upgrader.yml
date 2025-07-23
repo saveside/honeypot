@@ -1,0 +1,137 @@
+name: Upgrade K0s
+
+on:
+  push:
+    paths:
+      - 'vars.yaml'
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Connect Tailscale
+        uses: tailscale/github-action@v3
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:k0s-upgrade
+          version: latest
+          hostname: hivetool-k0s
+
+      - name: Install k0sctl
+        run: |
+          sudo wget https://github.com/k0sproject/k0sctl/releases/latest/download/k0sctl-linux-amd64 -O /usr/local/bin/k0sctl
+          sudo chmod +x /usr/local/bin/k0sctl
+
+      - name: Install yq
+        run: |
+          sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
+          sudo chmod +x /usr/local/bin/yq
+
+      - name: Extract k0s version from vars.yaml
+        id: extract_version
+        run: |
+          version=$(yq e '.k0sVersion' vars.yaml)
+          echo "k0s_version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Debug version
+        env:
+          K0S_VERSION: ${{ steps.extract_version.outputs.k0s_version }}
+        run: |
+          echo "Using k0s version: $K0S_VERSION"
+
+      - name: Generate k0sctl.yaml
+        run: |
+          cat > k0sctl.yaml <<'EOF'
+          apiVersion: k0sctl.k0sproject.io/v1beta1
+          kind: Cluster
+          metadata:
+            name: k0s-cluster
+          spec:
+            hosts:
+              - role: controller+worker
+                openSSH:
+                  address: ${{ secrets.CONTROL_PLANE }}
+                  user: root
+                  port: 22
+                  keyPath: null
+                privateInterface: tailscale0
+                installFlags:
+                  - '--kubelet-extra-args=\"--node-ip=${{ secrets.CONTROL_PLANE }}\"'
+              - role: worker
+                openSSH:
+                  address: ${{ secrets.WORKER_1 }}
+                  user: root
+                  port: 22
+                  keyPath: null
+                privateInterface: tailscale0
+                installFlags:
+                  - '--kubelet-extra-args=\"--node-ip=${{ secrets.WORKER_1 }}\"'
+              - role: worker
+                openSSH:
+                  address: ${{ secrets.WORKER_2 }}
+                  user: root
+                  port: 22
+                  keyPath: null
+                privateInterface: tailscale0
+                installFlags:
+                  - '--kubelet-extra-args=\"--node-ip=${{ secrets.WORKER_2 }}\"'
+            k0s:
+              version: "${{ steps.extract_version.outputs.k0s_version }}"
+              config:
+                apiVersion: k0s.k0sproject.io/v1beta1
+                kind: Cluster
+                metadata:
+                  name: k0s
+                spec:
+                  api:
+                    address: ${{ secrets.CONTROL_PLANE }}
+                    k0sApiPort: 9443
+                    port: 6443
+                  installConfig:
+                    users:
+                      etcdUser: etcd
+                      kineUser: kube-apiserver
+                      konnectivityUser: konnectivity-server
+                      kubeAPIserverUser: kube-apiserver
+                      kubeSchedulerUser: kube-scheduler
+                  konnectivity:
+                    adminPort: 8133
+                    agentPort: 8132
+                  network:
+                    kubeProxy:
+                      disabled: false
+                      mode: iptables
+                    kuberouter:
+                      autoMTU: true
+                      mtu: 0
+                      peerRouterASNs: ""
+                      peerRouterIPs: ""
+                    podCIDR: 172.16.0.0/16
+                    provider: calico
+                    calico:
+                      mode: vxlan
+                      envVars:
+                        FELIX_IPTABLESMARKMASK: "0xff00ff00"
+                        IP_AUTODETECTION_METHOD: "interface=tailscale0"
+                    serviceCIDR: 10.96.0.0/12
+                  podSecurityPolicy:
+                    defaultPolicy: 00-k0s-privileged
+                  storage:
+                    type: etcd
+                  telemetry:
+                    enabled: false
+          EOF
+
+      - name: Apply K0s upgrade
+        run: |
+          k0sctl apply --config k0sctl.yaml

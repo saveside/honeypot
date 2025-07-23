@@ -1,6 +1,11 @@
 name: YAML Format and Lint
+
 on:
+  push:
+  pull_request:
+  workflow_dispatch:
   workflow_call:
+
 permissions:
   contents: write
 jobs:
