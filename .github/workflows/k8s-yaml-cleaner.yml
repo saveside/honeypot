@@ -18,14 +18,14 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         
-      - name: Install kubectl-neat
-        run: go install github.com/itaysk/kubectl-neat@latest
+      - name: Install kube-neat
+        run: go install github.com/itaysk/kube-neat@latest
       
       - name: Clean up YAML files recursively
         run: |
           find manifests -type f -name '*.y*ml' | while read -r file; do
             echo "Cleaning $file"
-            kubectl-neat < "$file" > "$file.tmp" && mv "$file.tmp" "$file"
+            kube-neat < "$file" > "$file.tmp" && mv "$file.tmp" "$file"
           done
 
       - name: Create Pull Request
