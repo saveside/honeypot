@@ -21,9 +21,9 @@ jobs:
           chmod +x kubectl
           sudo mv kubectl /usr/local/bin/
 
-      - name: Install kubectl-neat
+      - name: Install kubectl-neat using wget
         run: |
-          curl -sSL https://github.com/itaysk/kubectl-neat/releases/download/latest/kubectl-neat_linux_amd64.tar.gz -o kubectl-neat.tar.gz
+          wget https://github.com/itaysk/kubectl-neat/releases/download/latest/kubectl-neat_linux_amd64.tar.gz -O kubectl-neat.tar.gz
           tar -xzf kubectl-neat.tar.gz
           chmod +x kubectl-neat
           sudo mv kubectl-neat /usr/local/bin/kubectl-neat
