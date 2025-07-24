@@ -1,0 +1,16 @@
+name: Pipeline
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    uses: ./.github/workflows/yaml-formatter.yml
+
+  manifest-clean:
+    needs: format
+    uses: ./.github/workflows/k8s-yaml-cleaner.yml
