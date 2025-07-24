@@ -38,9 +38,11 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: chore(ci): clean up manifests with kube-neat
+          commit-message: |
+            chore(ci): clean up manifests with kubectl-neat
           branch: automated/kubectl-neat-cleanup
-          title: chore(ci): Cleanup manifests with kube-neat
+          title: |
+            chore(ci): Cleanup manifests with kubectl-neat
           body: |
             This pull request is automatically created by a GitHub Action.
             It cleans up the YAML files in the `manifests/` directory using
