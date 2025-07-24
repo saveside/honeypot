@@ -36,7 +36,7 @@ jobs:
           done
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           commit-message: chore(ci): clean up manifests with kube-neat
           branch: automated/kubectl-neat-cleanup
