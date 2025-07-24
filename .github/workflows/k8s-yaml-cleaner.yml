@@ -15,19 +15,12 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Install kubectl
-        run: |
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          chmod +x kubectl
-          sudo mv kubectl /usr/local/bin/
-
-      - name: Install kubectl-neat using wget
-        run: |
-          wget https://github.com/itaysk/kubectl-neat/releases/download/latest/kubectl-neat_linux_amd64.tar.gz -O kubectl-neat.tar.gz
-          tar -xzf kubectl-neat.tar.gz
-          chmod +x kubectl-neat
-          sudo mv kubectl-neat /usr/local/bin/kubectl-neat
-
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        
+      - name: Install kubectl-neat
+        run: go install github.com/itaysk/kubectl-neat@latest
+      
       - name: Clean up YAML files recursively
         run: |
           find manifests -type f -name '*.y*ml' | while read -r file; do
